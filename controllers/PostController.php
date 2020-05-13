@@ -7,6 +7,7 @@
 namespace app\controllers;
 
 use app\models\Post;
+use yii\data\Pagination;
 use yii\web\Controller;
 
 
@@ -18,8 +19,16 @@ class PostController extends Controller
      * метод отвечает за показ главной страницы, подключает по умолчанию index
      */
     public function actionIndex(){
-        $posts = Post::find()->all(); //обращаемся к модели Post, создаем объект запроса вызовом метода find() и извлекаем данные из БД методом all()
-        return $this->render('index', compact('posts')); //с помощью compact() передаём эти данные
+        //обращаемся к модели Post, создаем объект запроса вызовом метода find() и извлекаем данные из БД методом all()
+
+        //$posts = Post::find()->all(); 
+
+        //включаем пагинацию
+        $query = Post::find();
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3]);
+        $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+        return $this->render('index', compact('posts', 'pages')); //с помощью compact() передаём эти данные
     }
 
 }
