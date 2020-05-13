@@ -10,12 +10,16 @@ $config = [
     'layout' => 'blog',
     'name' => 'Classic Start Page', //title главной страницы
     'language' => 'ru',
+    //'language' => 'en', //влияет в том числе на формат ДАТЫ
     'defaultRoute' => 'post/index', //переопределяем дефолтный(стартовый) маршрут
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'formatter' => [
+            'dateFormat' => 'php:d F Y', //дефолтный формат ДАТЫ 05 декабря 2019           
+       ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_rHLZdKzms7IB0yqkiboQz5_-OStHR4k',
