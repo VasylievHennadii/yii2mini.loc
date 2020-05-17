@@ -23,9 +23,10 @@ class PostController extends Controller
 
         //$posts = Post::find()->all(); 
 
+        //жадная загрузка
+        $query = Post::find()->with('category');
         //включаем пагинацию
-        $query = Post::find();
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 4]);
         $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
 
         return $this->render('index', compact('posts', 'pages')); //с помощью compact() передаём эти данные
