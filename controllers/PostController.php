@@ -26,10 +26,20 @@ class PostController extends Controller
         //жадная загрузка
         $query = Post::find()->with('category');
         //включаем пагинацию
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 4]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
 
         return $this->render('index', compact('posts', 'pages')); //с помощью compact() передаём эти данные
+    }
+
+    /**
+     * метод отвечает за показ страниц Post
+     */
+    public function actionView($id)
+    {
+        echo 'Post - ' . $id. '<br>';
+        var_dump($id);
+        die;
     }
 
 }
